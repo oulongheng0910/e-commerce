@@ -1,17 +1,13 @@
 <template>
-  <button class="btn" :style="{backgroundColor: color || '#f7f7f7'}" > {{ text }} &#x2192;</button>
+  <button class="btn" :style="{ backgroundColor: color || '#f7f7f7' }">Shop now &#x2192;</button>
 </template>
 
 <script>
-import Promotion from './Promotion.vue';
-
 export default {
   name: 'Button1',
   props: {
-    text: String,
     color: String,
   },
-   
 }
 </script>
 
@@ -29,6 +25,5 @@ export default {
 .btn:hover {
   background-color: red;
   transform: scale(1.1); /* Scale up on hover */
-  
 }
 </style>

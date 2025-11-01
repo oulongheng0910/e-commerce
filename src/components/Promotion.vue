@@ -1,42 +1,45 @@
 <template>
-<div class="promotion" :style="{ backgroundColor: bg || '#f7f7f7' }">
-<img :src="image" :alt="title" class="bg-image" >
+  <div class="promotion" :style="{ backgroundColor: bg || '#f7f7f7' }">
+    <img :src="getImage()" :alt="title" class="bg-image" />
     <div class="text-area">
-        <h3>{{ title }}</h3>
-        <Button1 :text="buttontext" :color="buttoncolor" @click="shopnow(title)" />
-    
+      <h3>{{ title }}</h3>
+      <Button1 :color="buttoncolor" @click="shopnow(title)" />
     </div>
-  
-    
-</div>
+  </div>
 </template>
 <script>
+import Button1 from './Button.vue'
 
-import Button1 from './Button.vue';
-
-export default{
-    name: "Promotion",
-    components:{
-        Button1
-    },
-    props: {
-        image: String,
-        title: String,
-        buttontext: String,
-        bg: String,
-        buttoncolor: String
-    },
-
-   methods:{
-      shopnow(title){
-        alert("let's shop: " + title);
-      },
+export default {
+  name: 'Promotion',
+  components: {
+    Button1,
+  },
+  data() {
+    return {
+      APIURL: 'http://localhost:3000/',
     }
+  },
+  props: {
+    image: String,
+    title: String,
+    bg: String,
+    buttoncolor: String,
+  },
+
+  methods: {
+    shopnow(title) {
+      alert("let's shop: " + title)
+    },
+    getImage() {
+      if (!this.image) return ''
+      return this.APIURL + this.image
+    },
+  },
 }
 </script>
 
 <style scoped>
-
 .promotion {
   position: relative;
   width: 100%;
@@ -50,12 +53,10 @@ export default{
 
 .bg-image {
   position: absolute;
-  top: 0;
-  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position:top;
   z-index: 1;
 }
 
@@ -78,6 +79,4 @@ export default{
   margin: 0;
   line-height: 1.4;
 }
-
 </style>
-
