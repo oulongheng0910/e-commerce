@@ -1,14 +1,17 @@
 <template>
-  <button class="btn" :style="{backgroundColor: color || '#f7f7f7'}">{{ text }} &#x2192;</button>
+  <button class="btn" :style="{backgroundColor: color || '#f7f7f7'}" > {{ text }} &#x2192;</button>
 </template>
 
 <script>
+import Promotion from './Promotion.vue';
+
 export default {
   name: 'Button1',
   props: {
     text: String,
     color: String,
   },
+   
 }
 </script>
 

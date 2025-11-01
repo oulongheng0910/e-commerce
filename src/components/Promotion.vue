@@ -3,7 +3,7 @@
 <img :src="image" :alt="title" class="bg-image" >
     <div class="text-area">
         <h3>{{ title }}</h3>
-        <Button1 :text="buttontext" :color="buttoncolor"/>
+        <Button1 :text="buttontext" :color="buttoncolor" @click="shopnow(title)" />
     
     </div>
   
@@ -26,6 +26,12 @@ export default{
         bg: String,
         buttoncolor: String
     },
+
+   methods:{
+      shopnow(title){
+        alert("let's shop: " + title);
+      },
+    }
 }
 </script>
 

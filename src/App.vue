@@ -13,8 +13,8 @@ export default {
       categories: [
         { title: 'Cake & Milk', count: 14, image: '/src/assets/burger.png', bg: '#F2FCE4' },
         { title: 'Peach', count: 17, image: '/src/assets/pink.png', bg: '#FFFCEB' },
-        { title: 'Kiwi', count: 21, image: '/src/assets/kivi.png', bg: '#ECFFEC' },
-        { title: 'Red Apple', count: 15, image: '/src/assets/red_apple.png', bg: '#FEEFEA' },
+        { title: 'Oganic Kiwi', count: 21, image: '/src/assets/kivi.png', bg: '#ECFFEC' },
+        { title: 'Red Apple', count: 68, image: '/src/assets/red_apple.png', bg: '#FEEFEA' },
         { title: 'Snack', count: 34, image: '/src/assets/Tea.png', bg: '#FFF3EB' },
         { title: 'Black Plum', count: 25, image: '/src/assets/grape.png', bg: '#FFF3FF' },
         { title: 'Vegetables', count: 65, image: '/src/assets/lettue.png', bg: '#F2FCE4' },
