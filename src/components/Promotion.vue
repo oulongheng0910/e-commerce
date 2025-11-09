@@ -47,8 +47,8 @@ export default {
   border-radius: 12px;
   overflow: hidden;
   display: flex;
-  align-items: center; /* Center text vertically */
-  justify-content: flex-start; /* Align text to left */
+  align-items: center; 
+  justify-content: flex-start; 
 }
 
 .bg-image {
@@ -64,7 +64,7 @@ export default {
   position: relative;
   z-index: 2;
   padding: 20px;
-  max-width: 30%; /* Text takes only left half */
+  max-width: 30%; 
   display: flex;
   flex-direction: column;
   justify-content: center;

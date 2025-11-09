@@ -24,6 +24,6 @@ export default {
 
 .btn:hover {
   background-color: red;
-  transform: scale(1.1); /* Scale up on hover */
+  transform: scale(1.1); 
 }
 </style>
