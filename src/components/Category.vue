@@ -13,6 +13,7 @@ export default {
     image: String,
     count: Number,
     bg: String,
+    group: String,
   },
   data() {
     return {
