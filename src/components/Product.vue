@@ -1,48 +1,51 @@
 <template>
-  <div v-if="product" class="product-card">
-    <div class="img-wrapper">
-      <img :src="imageUrl" :alt="product.name" />
+  <div class="product-card">
+    <!-- Router link should wrap the clickable area, not be a separate element -->
+    <router-link :to="{ name: 'product', params: { id: product.id } }" class="product-link">
+      <div class="img-wrapper">
+        <img :src="imageUrl" :alt="product.name" />
 
-      <!-- Discount Badge (-17%) -->
-      <div v-if="product.promotionAsPercentage > 0" class="badge discount1">
-        -{{ product.promotionAsPercentage }}%
-      </div>
-      <div v-if="product.promotionAsPercentage === 'Hot'" class="badge discount2">Hot</div>
-      <div v-if="product.promotionAsPercentage === 'Sale'" class="badge discount3">Sale</div>
-    </div>
-
-    <!-- Content -->
-    <div class="content">
-      <p class="brand">Hodo Foods</p>
-      <h4 class="title">{{ product.name }}</h4>
-
-      <!-- Rating -->
-      <div class="rating">
-        <span class="stars">
-          ★★★★☆
-          <span class="empty-stars">☆☆☆☆☆</span>
-        </span>
-        <span class="rating-text">({{ product.rating }})</span>
+        <!-- Discount Badge (-17%) -->
+        <div v-if="product.promotionAsPercentage > 0" class="badge discount1">
+          -{{ product.promotionAsPercentage }}%
+        </div>
+        <div v-else-if="product.promotionAsPercentage === 'Hot'" class="badge discount2">Hot</div>
+        <div v-else-if="product.promotionAsPercentage === 'Sale'" class="badge discount3">Sale</div>
       </div>
 
-      <p class="size">{{ product.size }}gram</p>
+      <!-- Content -->
+      <div class="content">
+        <p class="brand">Hodo Foods</p>
+        <h4 class="title">{{ product.name }}</h4>
 
-      <div class="footer">
-        <div class="price">
-          <span v-if="hasDiscount" class="old-price"> ${{ product.price.toFixed(2) }} </span>
-          <span class="new-price">${{ finalPrice }}</span>
+        <!-- Rating -->
+        <div class="rating">
+          <span class="stars">
+            ★★★★☆
+            <span class="empty-stars">☆☆☆☆☆</span>
+          </span>
+          <span class="rating-text">({{ product.rating }})</span>
         </div>
 
-        <div class="actions">
-          <select v-model="qty" class="qty">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-          <button @click="addToCart" class="add-btn">Add +</button>
-        </div>
+        <p class="size">{{ product.size }}gram</p>
+      </div>
+    </router-link>
+
+    <div class="footer">
+      <div class="price">
+        <span v-if="hasDiscount" class="old-price"> ${{ product.price.toFixed(2) }} </span>
+        <span class="new-price">${{ finalPrice }}</span>
+      </div>
+
+      <div class="actions">
+        <select v-model="qty" class="qty">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+        <button @click="addToCart" class="add-btn">Add +</button>
       </div>
     </div>
   </div>
@@ -107,11 +110,22 @@ export default {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .product-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.product-link {
+  text-decoration: none;
+  color: inherit;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .img-wrapper {
@@ -152,6 +166,7 @@ export default {
 
 .content {
   padding: 16px;
+  flex-grow: 1;
 }
 
 .brand {
@@ -206,7 +221,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 12px;
+  padding: 16px;
+  padding-top: 0;
+  border-top: 1px solid #eee;
+  margin-top: auto;
 }
 
 .price {

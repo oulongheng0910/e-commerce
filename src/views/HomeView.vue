@@ -1,5 +1,7 @@
 <template>
+  
   <div id="app">
+     <ShowCase />
     <section class="featured-categories">
       <div class="Navigation">
         <h2>Featured Categories</h2>
@@ -52,6 +54,8 @@ import Promotion from '../components/Promotion.vue'
 import Menu from '../components/Menu.vue'
 import Product from '../components/Product.vue'
 import { useProductStore } from '@/stores/product_store'
+import ShowCase from '@/components/ShowCase.vue'
+
 
 export default {
   components: {
@@ -59,6 +63,7 @@ export default {
     Promotion,
     Menu,
     Product,
+    ShowCase,
   },
 
   data() {

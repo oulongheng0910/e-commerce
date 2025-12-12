@@ -57,7 +57,7 @@ export default {
   justify-content: center;
   flex-wrap: wrap;
   gap: 30px;
-  padding: 40px 20px;
+  padding: 20px 20px;
   background-color: #f8f9fa;
 }
 
