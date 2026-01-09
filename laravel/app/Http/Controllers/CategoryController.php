@@ -8,7 +8,12 @@ use Illuminate\Http\JsonResponse;
 
 class CategoryController extends Controller
 {
-    // GET /api/categories - Get all categories
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except(['getCategories']); // Protect all except list (optional)
+    }
+
+    // GET /api/categories - Get all categories (public or protected list)
     public function getCategories(): JsonResponse
     {
         $categories = Category::all();
@@ -18,7 +23,9 @@ class CategoryController extends Controller
     // POST /api/categories - Create new category
     public function createCategory(Request $request): JsonResponse
     {
-        abort_unless(auth()->user()?->can('categories.create'), 403, 'Unauthorized');
+        // Gate check for general create permission
+        $this->authorize('categories.create');
+
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:categories,name',
         ]);
@@ -26,7 +33,6 @@ class CategoryController extends Controller
         $category = Category::create($validated);
 
         return response()->json($category, 201);
-        
     }
 
     // GET /api/categories/{id} - Get single category
@@ -34,14 +40,22 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($categoryId);
 
+        // Policy check: can this user view THIS specific category?
+        $this->authorize('view', $category);
+
         return response()->json($category);
     }
 
     // PATCH /api/categories/{id} - Update category
     public function updateCategory(Request $request, $categoryId): JsonResponse
     {
-        abort_unless(auth()->user()?->can('categories.update'), 403, 'Unauthorized')
         $category = Category::findOrFail($categoryId);
+
+        // Gate check for general update permission
+        $this->authorize('categories.update');
+
+        // Policy check: can this user update THIS specific category?
+        $this->authorize('update', $category);
 
         $validated = $request->validate([
             'name' => 'sometimes|required|string|max:255|unique:categories,name,' . $categoryId,
@@ -55,8 +69,14 @@ class CategoryController extends Controller
     // DELETE /api/categories/{id} - Delete category
     public function deleteCategory($categoryId): JsonResponse
     {
-        abort_unless(auth()->user()?->can('categories.delete'), 403, 'Unauthorized');
         $category = Category::findOrFail($categoryId);
+
+        // Gate check for general delete permission
+        $this->authorize('categories.delete');
+
+        // Policy check: can this user delete THIS specific category?
+        $this->authorize('delete', $category);
+
         $category->delete();
 
         return response()->json(['message' => 'Category deleted successfully']);

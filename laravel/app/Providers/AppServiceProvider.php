@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
- use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Category;
+use App\Policies\CategoryPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -57,5 +59,7 @@ class AppServiceProvider extends ServiceProvider
     Gate::define('categories.delete', function ($user) {
         return $user->hasPermission('categories.delete');
     });
+    // Register Policies (Part 4 addition)
+        Gate::policy(Category::class, CategoryPolicy::class);
 }
 }
