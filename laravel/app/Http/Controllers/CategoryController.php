@@ -18,6 +18,7 @@ class CategoryController extends Controller
     // POST /api/categories - Create new category
     public function createCategory(Request $request): JsonResponse
     {
+        abort_unless(auth()->user()?->can('categories.create'), 403, 'Unauthorized');
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:categories,name',
         ]);
@@ -39,6 +40,7 @@ class CategoryController extends Controller
     // PATCH /api/categories/{id} - Update category
     public function updateCategory(Request $request, $categoryId): JsonResponse
     {
+        abort_unless(auth()->user()?->can('categories.update'), 403, 'Unauthorized')
         $category = Category::findOrFail($categoryId);
 
         $validated = $request->validate([
@@ -53,6 +55,7 @@ class CategoryController extends Controller
     // DELETE /api/categories/{id} - Delete category
     public function deleteCategory($categoryId): JsonResponse
     {
+        abort_unless(auth()->user()?->can('categories.delete'), 403, 'Unauthorized');
         $category = Category::findOrFail($categoryId);
         $category->delete();
 

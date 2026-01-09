@@ -21,6 +21,7 @@ class ProductController extends Controller
     // POST /api/products - Create new product
     public function createProduct(Request $request): JsonResponse
     {
+        abort_unless(auth()->user()->can('products.create'), 403);
         $validated = $request->validate([
             'name'        => 'required|string|max:255',
             'price'       => 'required|numeric|min:0',
@@ -45,6 +46,7 @@ class ProductController extends Controller
     // PATCH /api/products/{id}
     public function updateProduct(Request $request, $productId): JsonResponse
     {
+        abort_unless(auth()->user()->can('products.update'), 403);
         $product = Product::findOrFail($productId);
 
         $validated = $request->validate([
@@ -63,6 +65,7 @@ class ProductController extends Controller
     // DELETE /api/products/{id}
     public function deleteProduct($productId): JsonResponse
     {
+        abort_unless(auth()->user()->can('products.delete'), 403);
         $product = Product::findOrFail($productId);
         $product->delete();
 
