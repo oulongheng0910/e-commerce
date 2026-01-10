@@ -63,5 +63,19 @@ public function hasPermission(string $permission): bool
         })
         ->exists();
 }
+public function author()
+{
+    return $this->hasOne(Author::class);
+}
+
+public function audience()
+{
+    return $this->hasOne(Audience::class);
+}
+
+public function comments()
+{
+    return $this->hasMany(Comment::class);
+}
 
 }
