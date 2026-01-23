@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Audience extends Model
 {
-    protected $fillable = ['user_id', 'article_id', 'name'];
+    protected $fillable = ['user_id','name'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function article()
+    public function articles()
     {
-        return $this->belongsTo(Article::class);
+        return $this->belongsToMany(Article::class); // ← Add this line
     }
 
     public function comments()
